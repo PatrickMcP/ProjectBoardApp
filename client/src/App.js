@@ -6,7 +6,7 @@ import { setCurrentUser, logoutUser } from './actions/authActions';
 import { clearCurrentProfile } from './actions/profileActions';
 
 import { Provider } from 'react-redux';
-import store from './store';
+import configureStore from './store';
 
 import PrivateRoute from './components/common/PrivateRoute';
 
@@ -35,15 +35,15 @@ if (localStorage.jwtToken) {
   // Decode token and get user info and exp
   const decoded = jwt_decode(localStorage.jwtToken);
   // Set user and isAuthenticated
-  store.dispatch(setCurrentUser(decoded));
+  configureStore.dispatch(setCurrentUser(decoded));
 
   // Check for expired token
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
     // Logout user
-    store.dispatch(logoutUser());
+    configureStore.dispatch(logoutUser());
     // Clear current Profile
-    store.dispatch(clearCurrentProfile());
+    configureStore.dispatch(clearCurrentProfile());
     // Redirect to login
     window.location.href = '/login';
   }
@@ -52,7 +52,7 @@ if (localStorage.jwtToken) {
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
+      <Provider store={configureStore}>
         <Router>
           <div className="App">
             <Navbar />
