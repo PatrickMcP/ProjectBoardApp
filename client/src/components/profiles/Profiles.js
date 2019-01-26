@@ -28,9 +28,9 @@ class Profiles extends Component {
 
     return (
       <div className="profiles">
-        <div className="container">
+        <div className="container position-relative">
           <div className="row">
-            <div className="col-md-12">
+            <div className="col-sm-12 ">
               <h1 className="display-4 text-center">User List</h1>
               {profileItems}
             </div>
